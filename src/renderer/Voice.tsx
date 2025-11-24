@@ -728,6 +728,21 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		},
 	});
 
+    useEffect(() => {
+        const handler = (_event: any, camoActive: boolean) => {
+            console.log('Camoflager signal received:', camoActive);
+            Object.values(audioElements.current).forEach(nodes => {
+                nodes.gain.gain.value = camoActive ? 0 : 1;
+            });
+        };
+
+        ipcRenderer.on('camoflager-signal', handler);
+
+        return () => {
+            ipcRenderer.removeListener('camoflager-signal', handler);
+        };
+    }, []);
+
 	useEffect(() => {
 		(async () => {
 			const context = new AudioContext();
@@ -1473,5 +1488,24 @@ function getPlayersPerRow(playerCount: number): ValidPlayersPerRow {
 	if (playerCount <= 9) return (12 / 3) as ValidPlayersPerRow;
 	else return Math.min(12, Math.floor(12 / Math.ceil(Math.sqrt(playerCount)))) as ValidPlayersPerRow;
 }
+
+    return (
+        <div className={classes.root}>
+            {(error || initialError) && (
+                <div className={classes.error}>
+                    <Typography align="center" variant="h6" color="error">
+                        ERROR
+                    </Typography>
+                    <Typography align="center" style={{ whiteSpace: 'pre-wrap' }}>
+                        {error}
+                        {initialError}
+                    </Typography>
+                    <SupportLink />
+                </div>
+            )}
+            {/* The rest of your UI rendering here... */}
+        </div>
+    );
+};
 
 export default Voice;
