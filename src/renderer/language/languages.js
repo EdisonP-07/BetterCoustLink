@@ -1,189 +1,190 @@
-import translationEN from '../../../static/locales/en/translation.json';
-import translationAF from '../../../static/locales/af/translation.json';
-import translationAR from '../../../static/locales/ar/translation.json';
-import translationAZ from '../../../static/locales/az/translation.json';
-import translationCA from '../../../static/locales/ca/translation.json';
-import translationZHCN from '../../../static/locales/zh_CN/translation.json';
-import translationZHTW from '../../../static/locales/zh_TW/translation.json';
-import translationCS from '../../../static/locales/cs/translation.json';
-import translationDA from '../../../static/locales/da/translation.json';
-import translationNL from '../../../static/locales/nl/translation.json';
-import translationEO from '../../../static/locales/eo/translation.json';
-import translationFI from '../../../static/locales/fi/translation.json';
-import translationFR from '../../../static/locales/fr/translation.json';
-import translationDE from '../../../static/locales/de/translation.json';
-import translationEL from '../../../static/locales/el/translation.json';
-import translationHE from '../../../static/locales/he/translation.json';
-import translationHU from '../../../static/locales/hu/translation.json';
-import translationID from '../../../static/locales/id/translation.json';
-import translationIT from '../../../static/locales/it/translation.json';
-import translationJA from '../../../static/locales/ja/translation.json';
-import translationKO from '../../../static/locales/ko/translation.json';
-import translationNO from '../../../static/locales/no/translation.json';
-import translationFA from '../../../static/locales/fa/translation.json';
-import translationPL from '../../../static/locales/pl/translation.json';
-import translationPT from '../../../static/locales/pt/translation.json';
-import translationPTBR from '../../../static/locales/pt_BR/translation.json';
-import translationRO from '../../../static/locales/ro/translation.json';
-import translationRU from '../../../static/locales/ru/translation.json';
-import translationSR from '../../../static/locales/sr/translation.json';
-import translationSK from '../../../static/locales/sk/translation.json';
-import translationSL from '../../../static/locales/sl/translation.json';
-import translationES from '../../../static/locales/es/translation.json';
-import translationSV from '../../../static/locales/sv/translation.json';
-import translationTT from '../../../static/locales/tt/translation.json';
-import translationTR from '../../../static/locales/tr/translation.json';
-import translationUK from '../../../static/locales/uk/translation.json';
-import translationVI from '../../../static/locales/vi/translation.json';
-const languages = {
+"use strict";
+exports.__esModule = true;
+var translation_json_1 = require("../../../static/locales/en/translation.json");
+var translation_json_2 = require("../../../static/locales/af/translation.json");
+var translation_json_3 = require("../../../static/locales/ar/translation.json");
+var translation_json_4 = require("../../../static/locales/az/translation.json");
+var translation_json_5 = require("../../../static/locales/ca/translation.json");
+var translation_json_6 = require("../../../static/locales/zh_CN/translation.json");
+var translation_json_7 = require("../../../static/locales/zh_TW/translation.json");
+var translation_json_8 = require("../../../static/locales/cs/translation.json");
+var translation_json_9 = require("../../../static/locales/da/translation.json");
+var translation_json_10 = require("../../../static/locales/nl/translation.json");
+var translation_json_11 = require("../../../static/locales/eo/translation.json");
+var translation_json_12 = require("../../../static/locales/fi/translation.json");
+var translation_json_13 = require("../../../static/locales/fr/translation.json");
+var translation_json_14 = require("../../../static/locales/de/translation.json");
+var translation_json_15 = require("../../../static/locales/el/translation.json");
+var translation_json_16 = require("../../../static/locales/he/translation.json");
+var translation_json_17 = require("../../../static/locales/hu/translation.json");
+var translation_json_18 = require("../../../static/locales/id/translation.json");
+var translation_json_19 = require("../../../static/locales/it/translation.json");
+var translation_json_20 = require("../../../static/locales/ja/translation.json");
+var translation_json_21 = require("../../../static/locales/ko/translation.json");
+var translation_json_22 = require("../../../static/locales/no/translation.json");
+var translation_json_23 = require("../../../static/locales/fa/translation.json");
+var translation_json_24 = require("../../../static/locales/pl/translation.json");
+var translation_json_25 = require("../../../static/locales/pt/translation.json");
+var translation_json_26 = require("../../../static/locales/pt_BR/translation.json");
+var translation_json_27 = require("../../../static/locales/ro/translation.json");
+var translation_json_28 = require("../../../static/locales/ru/translation.json");
+var translation_json_29 = require("../../../static/locales/sr/translation.json");
+var translation_json_30 = require("../../../static/locales/sk/translation.json");
+var translation_json_31 = require("../../../static/locales/sl/translation.json");
+var translation_json_32 = require("../../../static/locales/es/translation.json");
+var translation_json_33 = require("../../../static/locales/sv/translation.json");
+var translation_json_34 = require("../../../static/locales/tt/translation.json");
+var translation_json_35 = require("../../../static/locales/tr/translation.json");
+var translation_json_36 = require("../../../static/locales/uk/translation.json");
+var translation_json_37 = require("../../../static/locales/vi/translation.json");
+var languages = {
     en: {
-        translation: translationEN,
-        name: 'English',
+        translation: translation_json_1["default"],
+        name: 'English'
     },
     af: {
-        translation: translationAF,
-        name: 'Afrikaans',
+        translation: translation_json_2["default"],
+        name: 'Afrikaans'
     },
     ar: {
-        translation: translationAR,
-        name: 'العربية',
+        translation: translation_json_3["default"],
+        name: 'العربية'
     },
     az: {
-        translation: translationAZ,
-        name: 'Azərbaycan',
+        translation: translation_json_4["default"],
+        name: 'Azərbaycan'
     },
     ca: {
-        translation: translationCA,
-        name: 'Català',
+        translation: translation_json_5["default"],
+        name: 'Català'
     },
     'zh_CN': {
-        translation: translationZHCN,
-        name: '简体中文',
+        translation: translation_json_6["default"],
+        name: '简体中文'
     },
     'zh_TW': {
-        translation: translationZHTW,
-        name: '繁體中文',
+        translation: translation_json_7["default"],
+        name: '繁體中文'
     },
     cs: {
-        translation: translationCS,
-        name: 'Čeština',
+        translation: translation_json_8["default"],
+        name: 'Čeština'
     },
     da: {
-        translation: translationDA,
-        name: 'Dansk',
+        translation: translation_json_9["default"],
+        name: 'Dansk'
     },
     nl: {
-        translation: translationNL,
-        name: 'Nederlands',
+        translation: translation_json_10["default"],
+        name: 'Nederlands'
     },
     eo: {
-        translation: translationEO,
-        name: 'Esperanto',
+        translation: translation_json_11["default"],
+        name: 'Esperanto'
     },
     fi: {
-        translation: translationFI,
-        name: 'Suomi',
+        translation: translation_json_12["default"],
+        name: 'Suomi'
     },
     fr: {
-        translation: translationFR,
-        name: 'Français',
+        translation: translation_json_13["default"],
+        name: 'Français'
     },
     de: {
-        translation: translationDE,
-        name: 'Deutsch',
+        translation: translation_json_14["default"],
+        name: 'Deutsch'
     },
     el: {
-        translation: translationEL,
-        name: 'Ελληνικά',
+        translation: translation_json_15["default"],
+        name: 'Ελληνικά'
     },
     he: {
-        translation: translationHE,
-        name: 'עברית',
+        translation: translation_json_16["default"],
+        name: 'עברית'
     },
     hu: {
-        translation: translationHU,
-        name: 'Magyar',
+        translation: translation_json_17["default"],
+        name: 'Magyar'
     },
     id: {
-        translation: translationID,
-        name: 'Bahasa Indonesia',
+        translation: translation_json_18["default"],
+        name: 'Bahasa Indonesia'
     },
     it: {
-        translation: translationIT,
-        name: 'Italiano',
+        translation: translation_json_19["default"],
+        name: 'Italiano'
     },
     ja: {
-        translation: translationJA,
-        name: '日本語',
+        translation: translation_json_20["default"],
+        name: '日本語'
     },
     ko: {
-        translation: translationKO,
-        name: '한국인',
+        translation: translation_json_21["default"],
+        name: '한국인'
     },
     no: {
-        translation: translationNO,
-        name: 'Norsk',
+        translation: translation_json_22["default"],
+        name: 'Norsk'
     },
     fa: {
-        translation: translationFA,
-        name: 'فارسی',
+        translation: translation_json_23["default"],
+        name: 'فارسی'
     },
     pl: {
-        translation: translationPL,
-        name: 'Polski',
+        translation: translation_json_24["default"],
+        name: 'Polski'
     },
     'pt': {
-        translation: translationPT,
-        name: 'Português (Portugal)',
+        translation: translation_json_25["default"],
+        name: 'Português (Portugal)'
     },
     'pt_BR': {
-        translation: translationPTBR,
-        name: 'Português (Brasil)',
+        translation: translation_json_26["default"],
+        name: 'Português (Brasil)'
     },
     ro: {
-        translation: translationRO,
-        name: 'Română',
+        translation: translation_json_27["default"],
+        name: 'Română'
     },
     ru: {
-        translation: translationRU,
-        name: 'Русский',
+        translation: translation_json_28["default"],
+        name: 'Русский'
     },
     sr: {
-        translation: translationSR,
-        name: 'Српски',
+        translation: translation_json_29["default"],
+        name: 'Српски'
     },
     sk: {
-        translation: translationSK,
-        name: 'Slovenčina',
+        translation: translation_json_30["default"],
+        name: 'Slovenčina'
     },
     sl: {
-        translation: translationSL,
-        name: 'Slovenščina',
+        translation: translation_json_31["default"],
+        name: 'Slovenščina'
     },
     es: {
-        translation: translationES,
-        name: 'Español',
+        translation: translation_json_32["default"],
+        name: 'Español'
     },
     'sv': {
-        translation: translationSV,
-        name: 'Svenska',
+        translation: translation_json_33["default"],
+        name: 'Svenska'
     },
     'tt': {
-        translation: translationTT,
-        name: 'Татар',
+        translation: translation_json_34["default"],
+        name: 'Татар'
     },
     tr: {
-        translation: translationTR,
-        name: 'Türkçe',
+        translation: translation_json_35["default"],
+        name: 'Türkçe'
     },
     uk: {
-        translation: translationUK,
-        name: 'Українська',
+        translation: translation_json_36["default"],
+        name: 'Українська'
     },
     vi: {
-        translation: translationVI,
-        name: 'Tiếng Việt',
-    },
+        translation: translation_json_37["default"],
+        name: 'Tiếng Việt'
+    }
 };
-export default languages;
-//# sourceMappingURL=languages.js.map
+exports["default"] = languages;

@@ -1,27 +1,30 @@
-import React, { useState, useEffect } from 'react';
+"use strict";
+exports.__esModule = true;
+var react_1 = require("react");
 // @ts-ignore
-import chime from '../../../static/sounds/chime.mp3';
-import Button from '@mui/material/Button';
-import makeStyles from '@mui/styles/makeStyles';
-const useStyles = makeStyles(() => ({
+var chime_mp3_1 = require("../../../static/sounds/chime.mp3");
+var Button_1 = require("@mui/material/Button");
+var makeStyles_1 = require("@mui/styles/makeStyles");
+var useStyles = (0, makeStyles_1["default"])(function () { return ({
     button: {
         width: 'fit-content',
-        margin: '5px auto',
-    },
-}));
-const audio = new Audio();
-audio.src = chime;
-const TestSpeakersButton = ({ t, speaker }) => {
-    const classes = useStyles();
-    const [playing, setPlaying] = useState(false);
-    useEffect(() => {
+        margin: '5px auto'
+    }
+}); });
+var audio = new Audio();
+audio.src = chime_mp3_1["default"];
+var TestSpeakersButton = function (_a) {
+    var t = _a.t, speaker = _a.speaker;
+    var classes = useStyles();
+    var _b = (0, react_1.useState)(false), playing = _b[0], setPlaying = _b[1];
+    (0, react_1.useEffect)(function () {
         if (speaker.toLowerCase() !== 'default')
             audio.setSinkId(speaker);
-        audio.onended = () => {
+        audio.onended = function () {
             setPlaying(false);
         };
     }, [speaker]);
-    const testSpeakers = () => {
+    var testSpeakers = function () {
         if (playing) {
             audio.pause();
             audio.currentTime = 0;
@@ -32,7 +35,6 @@ const TestSpeakersButton = ({ t, speaker }) => {
             setPlaying(true);
         }
     };
-    return (React.createElement(Button, { variant: "contained", color: "secondary", size: "small", className: classes.button, onClick: testSpeakers }, playing ? t('settings.audio.test_speaker_stop') : t('settings.audio.test_speaker_start')));
+    return (react_1["default"].createElement(Button_1["default"], { variant: "contained", color: "secondary", size: "small", className: classes.button, onClick: testSpeakers }, playing ? t('settings.audio.test_speaker_stop') : t('settings.audio.test_speaker_start')));
 };
-export default TestSpeakersButton;
-//# sourceMappingURL=TestSpeakersButton.js.map
+exports["default"] = TestSpeakersButton;

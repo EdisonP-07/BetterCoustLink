@@ -1,64 +1,86 @@
-import { app, dialog, ipcMain, shell } from 'electron';
-import { platform, homedir } from 'os';
-import { enumerateValues, enumerateKeys, HKEY } from 'registry-js';
-import { DefaultGamePlatforms, GamePlatform, PlatformRunType, } from '../common/GamePlatform';
-import { parse } from 'vdf-parser';
-import spawn from 'cross-spawn';
-import path from 'path';
-import fs from 'fs';
-import { IpcMessages } from '../common/ipc-messages';
+"use strict";
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+exports.__esModule = true;
+exports.initializeIpcHandlers = exports.initializeIpcListeners = void 0;
+var electron_1 = require("electron");
+var os_1 = require("os");
+var registry_js_1 = require("registry-js");
+var GamePlatform_1 = require("../common/GamePlatform");
+var vdf_parser_1 = require("vdf-parser");
+var cross_spawn_1 = require("cross-spawn");
+var path_1 = require("path");
+var fs_1 = require("fs");
+var ipc_messages_1 = require("../common/ipc-messages");
 // Listeners are fire and forget, they do not have "responses" or return values
-export const initializeIpcListeners = () => {
-    ipcMain.on(IpcMessages.SHOW_ERROR_DIALOG, (e, opts) => {
+var initializeIpcListeners = function () {
+    electron_1.ipcMain.on(ipc_messages_1.IpcMessages.SHOW_ERROR_DIALOG, function (e, opts) {
         if (typeof opts === 'object' && opts && typeof opts.title === 'string' && typeof opts.content === 'string') {
-            dialog.showErrorBox(opts.title, opts.content);
+            electron_1.dialog.showErrorBox(opts.title, opts.content);
         }
     });
-    ipcMain.on(IpcMessages.OPEN_AMONG_US_GAME, (_, platform) => {
-        const error = () => dialog.showErrorBox('Error', 'Could not start the game.');
-        if (platform.launchType === PlatformRunType.URI) {
+    electron_1.ipcMain.on(ipc_messages_1.IpcMessages.OPEN_AMONG_US_GAME, function (_, platform) {
+        var error = function () { return electron_1.dialog.showErrorBox('Error', 'Could not start the game.'); };
+        if (platform.launchType === GamePlatform_1.PlatformRunType.URI) {
             // Just open the URI if we can to launch the game
             // TODO: Try to add error checking here
-            shell.openExternal(platform.runPath);
+            electron_1.shell.openExternal(platform.runPath);
         }
-        else if (platform.launchType === PlatformRunType.EXE) {
+        else if (platform.launchType === GamePlatform_1.PlatformRunType.EXE) {
             try {
-                const process = spawn(path.join(platform.runPath, platform.execute[0]), platform.execute.slice(1), { detached: true, stdio: 'ignore' });
-                process.on('error', error);
-                process.unref();
+                var process_1 = (0, cross_spawn_1["default"])(path_1["default"].join(platform.runPath, platform.execute[0]), platform.execute.slice(1), { detached: true, stdio: 'ignore' });
+                process_1.on('error', error);
+                process_1.unref();
             }
             catch (e) {
                 error();
             }
         }
     });
-    ipcMain.on(IpcMessages.RESTART_CREWLINK, () => {
-        app.relaunch();
-        app.quit();
+    electron_1.ipcMain.on(ipc_messages_1.IpcMessages.RESTART_CREWLINK, function () {
+        electron_1.app.relaunch();
+        electron_1.app.quit();
     });
-    ipcMain.on(IpcMessages.SEND_TO_OVERLAY, (_, event, ...args) => {
+    electron_1.ipcMain.on(ipc_messages_1.IpcMessages.SEND_TO_OVERLAY, function (_, event) {
+        var _a;
+        var args = [];
+        for (var _i = 2; _i < arguments.length; _i++) {
+            args[_i - 2] = arguments[_i];
+        }
         try {
             if (global.overlay)
-                global.overlay.webContents.send(event, ...args);
+                (_a = global.overlay.webContents).send.apply(_a, __spreadArray([event], args, false));
         }
         catch (e) {
             /*empty*/
         }
     });
-    ipcMain.on(IpcMessages.SEND_TO_MAINWINDOW, (_, event, ...args) => {
+    electron_1.ipcMain.on(ipc_messages_1.IpcMessages.SEND_TO_MAINWINDOW, function (_, event) {
+        var _a;
+        var args = [];
+        for (var _i = 2; _i < arguments.length; _i++) {
+            args[_i - 2] = arguments[_i];
+        }
         console.log('SEND TO MAINWINDOW CALLLED');
         try {
             if (global.mainWindow)
-                global.mainWindow.webContents.send(event, ...args);
+                (_a = global.mainWindow.webContents).send.apply(_a, __spreadArray([event], args, false));
         }
         catch (e) {
             /*empty*/
         }
     });
-    ipcMain.on(IpcMessages.QUIT_CREWLINK, () => {
+    electron_1.ipcMain.on(ipc_messages_1.IpcMessages.QUIT_CREWLINK, function () {
         try {
-            const mainWindow = global.mainWindow;
-            const overlay = global.overlay;
+            var mainWindow = global.mainWindow;
+            var overlay = global.overlay;
             global.mainWindow = null;
             global.overlay = null;
             mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.close();
@@ -69,49 +91,54 @@ export const initializeIpcListeners = () => {
         catch (_a) {
             /* empty */
         }
-        app.quit();
+        electron_1.app.quit();
     });
 };
+exports.initializeIpcListeners = initializeIpcListeners;
 // Handlers are async cross-process instructions, they should have a return value
 // or the caller should be "await"'ing them.  If neither of these are the case
 // consider making it a "listener" instead for performance and readability
-export const initializeIpcHandlers = () => {
-    ipcMain.handle(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, (_, customPlatforms) => {
-        const desktop_platform = platform();
+var initializeIpcHandlers = function () {
+    electron_1.ipcMain.handle(ipc_messages_1.IpcMessages.REQUEST_PLATFORMS_AVAILABLE, function (_, customPlatforms) {
+        var desktop_platform = (0, os_1.platform)();
         // Assume all game platforms are unavailable unless proven otherwise
-        const availableGamePlatforms = {};
+        var availableGamePlatforms = {};
         // Deal with default platforms first
         if (desktop_platform === 'win32') {
             // Steam
-            if (enumerateValues(HKEY.HKEY_CLASSES_ROOT, 'steam').find((value) => value ? value.name === 'URL Protocol' : false)) {
-                availableGamePlatforms[GamePlatform.STEAM] = DefaultGamePlatforms[GamePlatform.STEAM];
+            if ((0, registry_js_1.enumerateValues)(registry_js_1.HKEY.HKEY_CLASSES_ROOT, 'steam').find(function (value) {
+                return value ? value.name === 'URL Protocol' : false;
+            })) {
+                availableGamePlatforms[GamePlatform_1.GamePlatform.STEAM] = GamePlatform_1.DefaultGamePlatforms[GamePlatform_1.GamePlatform.STEAM];
             }
             // Epic Games
-            if (enumerateValues(HKEY.HKEY_CLASSES_ROOT, 'com.epicgames.launcher').find((value) => value ? value.name === 'URL Protocol' : false)) {
-                availableGamePlatforms[GamePlatform.EPIC] = DefaultGamePlatforms[GamePlatform.EPIC];
+            if ((0, registry_js_1.enumerateValues)(registry_js_1.HKEY.HKEY_CLASSES_ROOT, 'com.epicgames.launcher').find(function (value) {
+                return value ? value.name === 'URL Protocol' : false;
+            })) {
+                availableGamePlatforms[GamePlatform_1.GamePlatform.EPIC] = GamePlatform_1.DefaultGamePlatforms[GamePlatform_1.GamePlatform.EPIC];
             }
             // Microsoft Store
             // Search for 'Innersloth.Among Us....' key and grab it
-            const microsoft_regkey = enumerateKeys(HKEY.HKEY_CURRENT_USER, 'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages').find((reg_key) => reg_key.startsWith('Innersloth.AmongUs'));
+            var microsoft_regkey = (0, registry_js_1.enumerateKeys)(registry_js_1.HKEY.HKEY_CURRENT_USER, 'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages').find(function (reg_key) { return reg_key.startsWith('Innersloth.AmongUs'); });
             if (microsoft_regkey) {
                 // Grab the game path from the above key
-                const value_found = enumerateValues(HKEY.HKEY_CURRENT_USER, 'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages' +
+                var value_found = (0, registry_js_1.enumerateValues)(registry_js_1.HKEY.HKEY_CURRENT_USER, 'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages' +
                     '\\' +
-                    microsoft_regkey).find((value) => (value ? value.name === 'PackageRootFolder' : false));
+                    microsoft_regkey).find(function (value) { return (value ? value.name === 'PackageRootFolder' : false); });
                 if (value_found) {
-                    availableGamePlatforms[GamePlatform.MICROSOFT] = DefaultGamePlatforms[GamePlatform.MICROSOFT];
-                    availableGamePlatforms[GamePlatform.MICROSOFT].runPath = value_found.data;
+                    availableGamePlatforms[GamePlatform_1.GamePlatform.MICROSOFT] = GamePlatform_1.DefaultGamePlatforms[GamePlatform_1.GamePlatform.MICROSOFT];
+                    availableGamePlatforms[GamePlatform_1.GamePlatform.MICROSOFT].runPath = value_found.data;
                 }
             }
         }
         else if (desktop_platform === 'linux') {
             // Add platform to availableGamePlatforms and setup data if platform is available, do nothing otherwise
             try {
-                const vdfString = fs.readFileSync(homedir() + '/.steam/registry.vdf').toString();
-                const vdfObject = parse(vdfString);
+                var vdfString = fs_1["default"].readFileSync((0, os_1.homedir)() + '/.steam/registry.vdf').toString();
+                var vdfObject = (0, vdf_parser_1.parse)(vdfString);
                 //checks if Among Us's listed as installed in the .vdf-file
                 if (vdfObject['Registry']['HKCU']['Software']['Valve']['Steam']['Apps']['945360']['installed'] == 1) {
-                    availableGamePlatforms[GamePlatform.STEAM] = DefaultGamePlatforms[GamePlatform.STEAM];
+                    availableGamePlatforms[GamePlatform_1.GamePlatform.STEAM] = GamePlatform_1.DefaultGamePlatforms[GamePlatform_1.GamePlatform.STEAM];
                 }
             }
             catch (e) {
@@ -119,15 +146,15 @@ export const initializeIpcHandlers = () => {
             }
         }
         // Deal with custom client-added platforms
-        for (const key in customPlatforms) {
-            const game_platform = customPlatforms[key];
-            if (game_platform.launchType === PlatformRunType.URI) {
+        for (var key in customPlatforms) {
+            var game_platform = customPlatforms[key];
+            if (game_platform.launchType === GamePlatform_1.PlatformRunType.URI) {
                 // I really have no clue how to check this, so we're trusting they exist
                 availableGamePlatforms[key] = game_platform;
             }
-            else if (game_platform.launchType === PlatformRunType.EXE) {
+            else if (game_platform.launchType === GamePlatform_1.PlatformRunType.EXE) {
                 try {
-                    fs.accessSync(path.join(game_platform.runPath, game_platform.execute[0]), fs.constants.X_OK);
+                    fs_1["default"].accessSync(path_1["default"].join(game_platform.runPath, game_platform.execute[0]), fs_1["default"].constants.X_OK);
                     availableGamePlatforms[key] = game_platform;
                 }
                 catch (_a) {
@@ -138,4 +165,4 @@ export const initializeIpcHandlers = () => {
         return availableGamePlatforms;
     });
 };
-//# sourceMappingURL=ipc-handlers.js.map
+exports.initializeIpcHandlers = initializeIpcHandlers;

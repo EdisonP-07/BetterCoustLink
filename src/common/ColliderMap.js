@@ -1,15 +1,19 @@
-import { MapType } from './AmongusMap';
-import intersect from 'path-intersection';
-export const colliderMaps = {
-    [MapType.THE_SKELD]: [
+"use strict";
+var _a, _b;
+exports.__esModule = true;
+exports.poseCollide = exports.doorMaps = exports.colliderMaps = void 0;
+var AmongusMap_1 = require("./AmongusMap");
+var path_intersection_1 = require("path-intersection");
+exports.colliderMaps = (_a = {},
+    _a[AmongusMap_1.MapType.THE_SKELD] = [
         'M 33.65 35.32 V 37.57 H 25.3 V 36.35 H 21.71 L 20.41 37.46 V 41.75 H 22.2 V 44.05 H 20.97 V 42.62 H 19.4 V 40.96 H 18.27 L 16.43 42.12 V 48.04 L 18.25 49.14 H 19.4 V 47.49 H 20.97 V 46.18 H 22.2 V 48.66 H 20.36 V 53.04 L 21.69 54.06 H 25.3 V 52.41 H 27.05 V 55.28 H 34.79 L 36.95 57.58 H 41.08 V 52.97 H 44.18 V 53.54 H 41.39 V 56.52 L 42.47 57.54 H 45.52 L 46.63 56.52 V 53.54 H 46.02 V 52.97 H 46.94 V 55.02 H 49.48 L 51.75 52.82 V 49.58 H 50.39 V 47.14 H 52.75 V 45.44 H 55.46 V 46.79 H 57.45 L 59.18 45.39 V 43.45 L 57.47 41.96 H 55.46 V 43.31 H 52.75 V 41.96 H 50.39 V 41.01 H 51.75 V 37.76 L 49.51 35.61 H 46.94 V 37.57 H 45.06 V 36.2 L 42.04 33.26 H 35.75 Z',
         'M 48.07 41.01 H 48.6 V 41.96 H 47.86 V 41.57 H 45.54 V 41.77 L 43.97 43.61 V 45.23 H 47.86 V 44.09 H 50.96 V 45.01 H 48.6 V 49.58 H 48.03 L 46.95 50.84 H 41.08 V 48.23 H 40.21 V 47.88 H 41.87 V 50.45 H 46.13 L 47.07 49.51 V 45.75 H 40.21 V 44.62 H 42.46 L 45.06 42.03 V 39.74 H 46.94 V 39.84 Z',
         'M 29.98 39.79 V 40.22 H 28.75 V 44.85 L 29.61 45.97 H 34.96 V 44.53 L 33.21 42.82 V 40.22 H 31.77 V 39.79 H 33.65 V 42.07 L 36.21 44.62 H 38.37 V 48.23 H 36.38 L 34.79 49.8 V 53.1 H 31.33 V 52.54 H 32.61 L 33.69 51.52 V 49.45 L 34.96 48.25 V 46.84 H 29.63 V 53.1 H 28.8 V 50.27 H 25.3 V 48.66 H 23.99 V 46.18 H 25.39 V 47.45 H 28.23 V 42.73 L 27.47 41.96 H 26.37 L 25.39 42.92 V 44.05 H 23.99 V 41.75 H 25.3 V 39.79 Z'
     ],
-    [MapType.MIRA_HQ]: [
+    _a[AmongusMap_1.MapType.MIRA_HQ] = [
         'M 39.79 31.723 H 28.373 V 40.223 H 33.731 V 42.698 H 43.717 V 42.213 H 53.633 V 40.463 V 42.213 H 57.119 V 37.556 H 53.594 V 36.64 V 38.64 V 37.556 H 57.119 V 33.806 H 53.584 V 34.733 V 33.757 L 57.805 29.561 L 62 33.802 H 61.098 V 38.437 H 60.118 H 61.118 V 33.802 H 57.868 V 40.74 H 60.783 H 57.868 V 43.907 H 60.366 V 42.74 H 69.283 V 40.574 H 66.783 H 69.283 V 33.74 H 64.449 V 31.49 H 62.949 L 58.989 27.53 V 21.66 V 23.235 H 62.822 V 18.142 H 58.405 H 59.072 V 19.975 V 18.142 H 62.905 V 14.058 H 52.822 V 18.219 H 57.17 H 56.586 V 21.552 V 18.213 H 52.83 H 52.747 V 23.297 H 56.664 V 27.63 L 52.614 31.513 H 51.197 V 34.68 V 33.753 H 48.27 V 37.086 H 47.27 V 26.678 V 30.345 H 52.227 V 24.54 H 44.879 V 28.54 V 23.209 H 39.977 V 30.499 H 44.942 V 37.083 H 43.713 V 39.916 H 51.188 V 36.621 V 39.955 H 43.713 V 40.332 H 37.386 V 40.082 H 39.803 Z M 63.203 40.64 H 64.369',
     ],
-    [MapType.POLUS]: [
+    _a[AmongusMap_1.MapType.POLUS] = [
         'M 51.257 48.531 V 48.131 H 41.423 V 50.498 H 41.857 H 41.423 V 53.131 H 44.751 H 44.365 V 50.459 H 43.184 H 44.365 V 53.131 H 44.532 V 58.095 H 44.798 H 43.798 H 44.165 V 55.161 L 43.189 54.352 H 40.123 V 58.052 H 42.423 V 60.652 H 42.123 H 42.423 V 58.068 H 40.123 V 60.662 H 40.777 H 40.123 V 62.495 H 42.744 H 40.123 V 65.095 H 44.477 V 62.462 H 44.111 H 44.477 V 61.962 H 45.244',
         'M 46.577 61.962 H 47.011 V 58.095 H 46.244 V 53.131 H 46.111 H 46.577 V 50.544 H 46.811',
         'M 51.257 50.205 V 50.544 H 48.14',
@@ -23,14 +27,14 @@ export const colliderMaps = {
         'M 51.646 58.923 V 57.79 H 53.313 V 54.857 H 50.113 V 58.923',
         'M 52.257 60.719 V 61.801 H 49.591 V 65.268 H 52.991 L 54.2 64.025 V 61.758 H 53.791 V 60.719',
     ],
-    [MapType.AIRSHIP]: [
+    _a[AmongusMap_1.MapType.AIRSHIP] = [
         'M 25.47 56.91 V 55.36 H 25.14 V 53.16 L 25.12 53.34 H 22.78 V 50.72 H 31.01 V 51.12 H 31.25 V 48.01 V 50.23 H 24.93 L 24.16 49.44 V 47.47 L 25.09 46.97 H 27.87 L 26.45 48.52 H 26.81 L 28.56 46.76 V 45.95 L 26.7 43.61 L 26.24 43.61 L 27.83 45.66 H 25.32 L 24.57 44.56 V 42.67 L 25.47 41.92 H 28.3 H 23.84 V 41.75 H 23.59 V 44.04 H 14.65 V 38.11 H 23.59 V 39.96 H 23.84 V 39.63 H 25.83 L 25.22 39.54 L 24.73 38.7 V 36.7 H 26.53 V 36.95 H 27.34 V 36.13 H 28.7 V 39.59 H 27.57 H 31.17 V 39.96 H 31.33 V 37.11 H 37.45 V 32.55 H 38.43 H 36.3 V 31.97 V 35.81 H 25.81 V 24.49 H 36.3 V 30.42 V 30.22 H 42.66 V 30.08 H 43.88 V 25.78 H 42.9 V 22.44 H 47.06 V 22.85 H 47.63 V 22.44 H 54.47 V 23.66 H 54.64 V 23.09 H 56.59 V 23.5 H 57.93 V 25.75 H 54.64 V 25.46 H 54.47 V 26.35 H 47.63 V 25.78 H 47.06 V 26.35 H 45.96 V 25.78 H 45.22 V 30.08 H 45.92 V 30.88 H 49.45 V 29.78 H 56.42 V 26.51 H 63.84 V 29.77 H 64.01 V 29.12 H 67.67 V 33.52 H 67.84 V 33.2 H 68.57 V 31.49 H 69.95 V 33.24 H 70.04 V 31.49 H 71.42 V 33.2 H 71.59 V 31.49 H 72.97 V 33.2 H 73.13 V 31.49 H 74.44 V 33.2 H 75.09 V 35.4 H 74.52 V 35.56 H 75.74 V 36.46 H 79.73 V 44.28 H 73.35 L 73.46 44.37 V 46.8 H 70.93 V 47.86 H 67.27 V 46.8 H 66.7 V 46.4 H 66.45 V 50.03 L 65.83 50.63 H 62.25 L 61.4 49.77 V 49.17 H 61.24 V 49.41 H 59.93 V 49.74 H 60.59 V 51.86 H 57.98 V 51.69 H 57.57 V 51.86 H 54.88 V 51.53 H 52.93 L 52.6 51.17 V 49.41 H 51.87 V 49.17 H 51.54 V 49.41 H 50.81 V 50.96 H 49.42 V 53.16 H 47.79 V 54.22 H 50.88 V 56.91 H 45.05 V 53.57 H 46.4 V 53.16 H 44.49 V 52.83 V 53.16 H 38.5 V 52.83 H 38.34 V 53.24 H 31.25 V 52.74 H 31.05 V 53.32 H 27.3 L 27.26 53.16 V 55.36 H 26.45 V 56.91 Z M 44.49 49.05 H 49.34 V 47.06 H 48.97 V 44.84 H 51.48 L 51.72 45.04 L 51.86 44.81 H 54.52 V 45.01 H 54.8 V 44.85 H 57.65 V 45.01 H 57.9 V 44.85 H 58.55 V 44.6 H 56.92 V 42.89 H 60.59 V 44.6 H 59.93 V 44.85 H 60.68 V 47.01 H 59.93 L 59.93 47.21 H 61.23 L 61.29 47.66 V 45.29 L 62.45 44.36 H 66.45 V 44.69 H 66.62 V 44.36 H 71.71 H 69.79 V 43.99 H 65.08 V 39.74 V 42.65 H 60.18 V 40.86 H 59.62 V 41.39 H 57.72 V 41.1 H 57.49 V 40.82 L 57.4 41.1 H 53.66 V 42.4 H 54.56 V 44.34 H 51.29 V 41.1 H 47.55 V 42.4 H 48.45 V 44.28 H 45.19 V 41.1 H 44.3 L 44.13 40.82 V 43.22 H 31.33 V 41.92 H 29.83 L 31.09 42.75 V 46.36 V 44.82 H 33.45 V 47.78 H 37.89 V 49.49 H 38.42 V 50.88 H 44.49 V 51.23 Z M 54.8 49.98 V 49.66 H 55.53 V 49.49 H 54.8 V 49.25 H 54.56 V 49.49 H 53.82 V 49.98 Z M 57.9 49.98 V 49.66 H 58.55 V 49.49 H 57.9 V 49.25 H 57.65 V 49.49 H 57 V 49.66 H 57.65 V 49.98 Z M 51.79 47.62 V 47.29 H 52.52 V 47.05 H 51.79 V 46.8 H 51.54 V 47.05 H 50.97 V 47.29 H 51.54 V 47.62 Z M 54.8 47.62 V 47.21 H 55.53 V 47.05 H 54.8 V 46.8 H 54.56 V 47.05 H 53.99 V 47.21 H 54.56 V 47.62 Z M 57.9 47.62 V 47.21 H 58.55 V 47.05 H 57.9 V 46.8 H 57.65 V 47.05 H 57 V 47.21 H 57.65 V 47.62 Z M 57.5 38.66 H 57.65 V 36.46 H 56.67 V 34.01 H 59.08 H 56.67 V 31.73 H 56.42 V 31.36 V 32.22 H 51.22 V 32.22 H 56.42 V 34.56 H 50.25 V 32.22 H 49.46 V 31.7 H 45.92 V 32.34 H 44.62 V 33.85 H 42.66 V 32.01 V 32.55 H 39.75 H 40.22 V 37.11 H 44.13 V 39.02 V 38.66 H 45.27 V 37.12 H 44.57 V 35.52 H 47.14 V 38.66 H 47.87 V 36.58 H 48.93 V 35.6 H 50.73 V 38.66 H 50.97 V 36.37 H 53.9 V 38.66 H 54.07 V 35.56 H 55.37 V 36.54 H 57 V 38.66 H 57.41 V 39.1 H 57.5 Z M 60.18 38.09 V 36.21 H 64.82 V 38.17 H 65.06 V 37.23 H 69.75 V 36.42 H 72.15 V 35.42 H 73.09 H 67.84 V 35.19 V 35.56 H 64.01 V 31.49 V 34 H 60.58 H 61.16 V 35.93 H 59.69 V 38.17 H 63.32 Z',
     ],
-    [MapType.SUBMERGED]: [
+    _a[AmongusMap_1.MapType.SUBMERGED] = [
         // not tested might require some small offset adjustments
         'M 40 4.7 C 40.5 4.7 41 4.9 41.2 5.5 V 7.1 H 42.8 V 8.3 L 44.5 10 V 11 H 41.3 V 13.6 L 43.3 15.6 L 45.4 13.5 V 12.8 H 44.6 V 9.4 L 42.9 7.7 V 7.1 H 48.9 V 11.4 L 47.5 12.8 H 46.7 V 14.4 L 44.3 16.8 V 17.4 H 46.9 V 18.7 H 49.6 V 11.3 H 51.1 V 12.1 H 51.3 V 11.4 H 52.9 V 14.2 H 51.3 V 13.5 H 51.1 V 15.3 H 53.1 V 13.5 H 55.7 V 17.4 H 51.1 V 26.9 H 48.9 V 29.4 H 49.4 V 30.5 H 49.6 V 29.8 H 51.2 V 32.7 H 49.6 V 31.9 H 49.3 V 32.7 H 48.4 V 33.7 H 49.1 V 35.5 H 46.4 V 33.7 H 47.1 V 32.8 H 46.3 V 31.6 L 45.4 30 H 44.9 V 30.8 H 45.3 L 46.2 32.2 V 32.8 H 43.5 V 28 H 44.2 V 22.9 H 42.1 V 24.4 H 42.4 V 26.1 H 40.8 V 26.8 H 42.4 V 30.5 C 42.4 31.1 41.6 31.4 41 31.4 C 40.5 31.4 39.7 31 39.7 30.4 V 29 H 41 V 28.3 H 35.1 V 26.9 H 34.9 V 27.7 H 31.8 V 22.7 H 32.7 V 21.4 H 31.3 V 28.6 H 33.9 V 31.4 H 28.5 V 27.1 H 29.8 V 21.4 H 29.1 V 25.5 H 24.3 V 18.7 H 29.1 V 20 H 29.9 V 15.6 H 27 V 8.3 H 28.3 L 30.8 9.7 V 10.5 H 36 V 12.3 H 39.9 V 11 H 39.1 L 37.3 9.2 V 7.1 H 38.8 V 5.5 C 39 4.9 39.6 4.7 40 4.7 Z M 51.1 59.4 V 60.1 H 51.3 V 59.5 H 52.9 V 62.4 H 51.3 V 61.6 H 51.1 V 64 H 54.4 V 66.3 L 52.9 67.4 V 69.7 H 50.7 V 70.3 H 51.4 V 70.5 H 51.5 V 70.3 H 52.8 L 54.3 71.5 V 73 H 51.5 V 72 H 51.4 V 73 H 48.4 V 70.3 H 49.3 V 69.7 H 48.4 V 68.3 H 46.9 V 71 H 43.5 V 72.1 L 46.8 73 V 76.9 H 45.9 V 77.7 H 49.4 V 78.6 H 49.5 V 77.9 H 51.2 V 80.8 H 49.5 V 80 H 49.4 V 80.9 H 48.4 V 81.8 H 49.2 V 83.5 H 46.3 V 81.8 H 47.1 V 80.9 H 43.5 V 80.1 H 37.8 V 80.9 H 36 V 80 H 35.8 V 80.9 H 32.1 L 31.7 80.6 V 81.3 L 32 81.6 H 34.2 V 83.8 H 28.1 V 77.8 H 30.3 V 79.9 L 30.5 80.1 V 79.4 L 30.3 79.2 V 75.2 H 31.1 V 74.3 H 30.3 V 72.4 H 31.1 V 69.6 H 29.6 V 75.1 H 23.8 V 73 H 28.1 V 72.4 H 23.8 V 69.2 H 28.1 V 68.5 H 23.8 V 66.5 H 29.6 V 68.1 H 32.8 V 67.2 H 32 V 65.4 H 34.8 V 67.2 H 34.1 V 68.1 H 35.7 V 67.2 H 35 V 65.4 H 37.8 V 67.2 H 37 V 68.1 H 39.7 V 65.5 H 41.1 V 59.4 Z M 36 13.7 V 15.6 H 31.2 V 20 H 32.7 V 19 H 32 V 17.4 H 34.8 V 19 H 34.1 V 20 H 35.7 V 19 H 35 V 17.4 H 37.8 V 19 H 37 V 20 H 39.7 V 17.4 H 42.2 V 16.8 L 39.9 14.4 V 13.7 Z M 34.1 21.4 V 22.7 H 35 V 25.5 H 35.1 V 24.9 L 36.7 24.5 H 40.7 V 22.9 H 39.7 V 21.4 Z M 42.5 60.8 V 65.5 H 46.9 V 66.8 H 48.4 V 63.2 H 49.8 V 62.4 H 48.4 V 65.4 H 47 V 63.9 L 45.7 61.7 V 60.8 Z M 32.5 69.6 V 72.4 H 33.3 V 74.3 H 32.5 V 75.2 H 33.3 V 76.4 L 34.8 77.8 H 35.8 V 78.5 H 36 V 77.8 H 37.8 V 78.6 H 43.5 V 77.7 H 44.5 V 76.9 H 38.8 V 73 L 42.1 72.1 V 71 H 39.7 V 69.6 H 36.1 V 72.2 H 37.5 V 75.6 H 35.5 L 34.2 74.3 V 70.7 H 34.7 V 69.6 Z M 46.9 22.9 H 45.5 V 28 H 46.1 L 47 29.4 H 47.5 V 25.4 H 49.7 V 20.1 H 46.9 Z',
     ],
-    [MapType.FUNGLE]: [
+    _a[AmongusMap_1.MapType.FUNGLE] = [
         'M 27.12 33.21 V 31.23 H 26.92 V 33.11 Z',
         'M 20.2 34.47 V 36 H 25.72 L 27.1 35.54 V 34.6 H 26.88 V 35.36 L 25.93 35.72 H 20.41 V 34.58 Z',
         'M 20.13 33.11 H 20.34 V 31.89 H 20.05 Z',
@@ -65,15 +69,15 @@ export const colliderMaps = {
         'M 41.57 32.55 H 38.45 V 34.64 H 38.23 V 31.61 H 41.53 Z',
         'M 40.42 34.3 H 43.96 V 37.64 H 38.72 L 38.22 36.5 H 43.02 V 34.73 H 40.52 Z'
     ],
-    [MapType.THE_SKELD_APRIL]: undefined,
-    [MapType.UNKNOWN]: undefined,
-};
-export const doorMaps = {
-    [MapType.MIRA_HQ]: {
+    _a[AmongusMap_1.MapType.THE_SKELD_APRIL] = undefined,
+    _a[AmongusMap_1.MapType.UNKNOWN] = undefined,
+    _a);
+exports.doorMaps = (_b = {},
+    _b[AmongusMap_1.MapType.MIRA_HQ] = {
         0: 'M 44.942 37.086 H 47.27',
-        1: 'M 44.942 30.499 H 47.27',
+        1: 'M 44.942 30.499 H 47.27'
     },
-    [MapType.POLUS]: {
+    _b[AmongusMap_1.MapType.POLUS] = {
         0: 'M 51.257 48.531 V 50.205',
         1: 'M 48.14 50.544 H 46.811 ',
         2: 'M 44.751 53.131 H 46.111',
@@ -89,9 +93,9 @@ export const doorMaps = {
         12: 'M 65.475 63.639 V 65.376',
         13: 'M 63.226 63.121 H 64.575',
         14: 'M 77.996 50.401 V 48.711',
-        15: 'M 78.363 50.967 H 79.756', // decom door spec->med
+        15: 'M 78.363 50.967 H 79.756'
     },
-    [MapType.THE_SKELD]: {
+    _b[AmongusMap_1.MapType.THE_SKELD] = {
         0: 'M 45.059 37.568 V 39.744 ',
         3: 'M 38.371 44.717 H 40.207',
         8: 'M 33.649 37.568 V 39.787',
@@ -104,9 +108,9 @@ export const doorMaps = {
         9: 'M 29.628 53.101 H 31.333',
         1: 'M 34.786 55.353 V 53.101',
         7: 'M 38.371 48.231 H 40.207',
-        12: 'M 41.081 52.971 V 50.839', // storage -> shields
+        12: 'M 41.081 52.971 V 50.839'
     },
-    [MapType.AIRSHIP]: {
+    _b[AmongusMap_1.MapType.AIRSHIP] = {
         0: 'M 23.8376 41.7526 V 39.96',
         1: 'M 31.1709 39.96 V 41.9155',
         2: 'M 27.5694 39.6096 H 25.8339',
@@ -127,10 +131,10 @@ export const doorMaps = {
         17: 'M 71.5857 33.197 H 72.9709',
         18: 'M 73.1339 33.197 H 74.4376',
         19: 'M 61.2946 47.66 V 49.1674',
-        20: 'M 71.708 44.3274 H 73.3457', //Medical Top
+        20: 'M 71.708 44.3274 H 73.3457'
     },
-    [MapType.SUBMERGED]: undefined,
-    [MapType.FUNGLE]: {
+    _b[AmongusMap_1.MapType.SUBMERGED] = undefined,
+    _b[AmongusMap_1.MapType.FUNGLE] = {
         0: 'M 62.95 27.87 H 65.34',
         1: 'M 58.53 27.51 V 25.63',
         2: 'M 23.51 45.57 H 25.44',
@@ -138,35 +142,37 @@ export const doorMaps = {
         4: 'M 50.9 38.43 V 35.82',
         5: 'M 51.38 33.62 H 53.88',
         6: 'M 59.52 47.91 V 45.62',
-        7: 'M 38.31 36.76 V 34.37', // Storage
+        7: 'M 38.31 36.76 V 34.37'
     },
-    [MapType.THE_SKELD_APRIL]: undefined,
-    [MapType.UNKNOWN]: undefined,
-};
-export function poseCollide(p1, p2, map, closedDoors) {
-    if (map === MapType.THE_SKELD_APRIL) {
+    _b[AmongusMap_1.MapType.THE_SKELD_APRIL] = undefined,
+    _b[AmongusMap_1.MapType.UNKNOWN] = undefined,
+    _b);
+function poseCollide(p1, p2, map, closedDoors) {
+    if (map === AmongusMap_1.MapType.THE_SKELD_APRIL) {
         p1.x = p1.x * -1;
         p2.x = p2.x * -1;
-        map = MapType.THE_SKELD;
+        map = AmongusMap_1.MapType.THE_SKELD;
     }
-    const colliderMap = colliderMaps[map];
-    if (!colliderMap || map === MapType.UNKNOWN) {
+    var colliderMap = exports.colliderMaps[map];
+    if (!colliderMap || map === AmongusMap_1.MapType.UNKNOWN) {
         return false;
     }
-    for (const collider of colliderMap) {
-        const intersections = intersect(collider, `M ${p1.x + 40} ${40 - p1.y} L ${p2.x + 40} ${40 - p2.y}`);
+    for (var _i = 0, colliderMap_1 = colliderMap; _i < colliderMap_1.length; _i++) {
+        var collider = colliderMap_1[_i];
+        var intersections = (0, path_intersection_1["default"])(collider, "M ".concat(p1.x + 40, " ").concat(40 - p1.y, " L ").concat(p2.x + 40, " ").concat(40 - p2.y));
         if (intersections.length > 0) {
             return true;
         }
     }
-    const doorMap = doorMaps[map];
+    var doorMap = exports.doorMaps[map];
     if (!doorMap) {
         return false;
     }
-    for (const doorId of Object.values(closedDoors)) {
-        const doorPath = doorMap[doorId];
+    for (var _a = 0, _b = Object.values(closedDoors); _a < _b.length; _a++) {
+        var doorId = _b[_a];
+        var doorPath = doorMap[doorId];
         if (doorPath) {
-            const intersections = intersect(doorPath, `M ${p1.x + 40} ${40 - p1.y} L ${p2.x + 40} ${40 - p2.y}`);
+            var intersections = (0, path_intersection_1["default"])(doorPath, "M ".concat(p1.x + 40, " ").concat(40 - p1.y, " L ").concat(p2.x + 40, " ").concat(40 - p2.y));
             if (intersections.length > 0) {
                 return true;
             }
@@ -174,4 +180,4 @@ export function poseCollide(p1, p2, map, closedDoors) {
     }
     return false;
 }
-//# sourceMappingURL=ColliderMap.js.map
+exports.poseCollide = poseCollide;

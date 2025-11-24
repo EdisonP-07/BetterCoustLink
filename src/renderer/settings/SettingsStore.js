@@ -1,14 +1,17 @@
-import Store from 'electron-store';
-import { GamePlatform } from '../../common/GamePlatform';
-export var pushToTalkOptions;
+"use strict";
+exports.__esModule = true;
+exports.setLobbySetting = exports.setSetting = exports.SettingsStore = exports.pushToTalkOptions = void 0;
+var electron_store_1 = require("electron-store");
+var GamePlatform_1 = require("../../common/GamePlatform");
+var pushToTalkOptions;
 (function (pushToTalkOptions) {
     pushToTalkOptions[pushToTalkOptions["VOICE"] = 0] = "VOICE";
     pushToTalkOptions[pushToTalkOptions["PUSH_TO_TALK"] = 1] = "PUSH_TO_TALK";
     pushToTalkOptions[pushToTalkOptions["PUSH_TO_MUTE"] = 2] = "PUSH_TO_MUTE";
-})(pushToTalkOptions || (pushToTalkOptions = {}));
-export const SettingsStore = new Store({
+})(pushToTalkOptions = exports.pushToTalkOptions || (exports.pushToTalkOptions = {}));
+exports.SettingsStore = new electron_store_1["default"]({
     migrations: {
-        '2.0.6': (store) => {
+        '2.0.6': function (store) {
             if (store.get('serverURL') === 'http://bettercrewl.ink' ||
                 store.get('serverURL') === 'https://bettercrewlink.app' ||
                 store.get('serverURL') === 'http://bettercrewlink.app' ||
@@ -32,7 +35,7 @@ export const SettingsStore = new Store({
                 store.set('serverURL', 'https://bettercrewl.ink');
             }
         },
-        '2.0.7': (store) => {
+        '2.0.7': function (store) {
             if (store.get('serverURL') === 'http://bettercrewl.ink' ||
                 store.get('serverURL') === 'https://bettercrewlink.app' ||
                 store.get('serverURL') === 'http://bettercrewlink.app' ||
@@ -56,251 +59,251 @@ export const SettingsStore = new Store({
                 store.set('serverURL', 'https://bettercrewl.ink');
             }
         },
-        '2.1.4': (store) => {
+        '2.1.4': function (store) {
             store.set('playerConfigMap', {});
         },
-        '2.2.0': (store) => {
+        '2.2.0': function (store) {
             store.set('mobileHost', true);
         },
-        '2.2.5': (store) => {
-            const pushToTalkValue = store.get('pushToTalk');
+        '2.2.5': function (store) {
+            var pushToTalkValue = store.get('pushToTalk');
             if (typeof pushToTalkValue === 'boolean') {
                 store.set('pushToTalkMode', pushToTalkValue ? pushToTalkOptions.PUSH_TO_TALK : pushToTalkOptions.VOICE);
             }
             // @ts-ignore
-            store.delete('pushToTalk');
+            store["delete"]('pushToTalk');
         },
-        '2.3.6': (store) => {
+        '2.3.6': function (store) {
             if (store.get('serverURL').includes('//crewl.ink'))
                 store.set('serverURL', 'https://bettercrewl.ink');
         },
-        '2.4.0': (store) => {
-            const currentSensitivity = store.get('micSensitivity');
+        '2.4.0': function (store) {
+            var currentSensitivity = store.get('micSensitivity');
             if (currentSensitivity >= 0.3) {
                 store.set('micSensitivity', 0.15);
                 store.set('micSensitivityEnabled', false);
             }
         },
-        '3.0.6': (store) => {
+        '3.0.6': function (store) {
             if (store.has('ghostVolume')) {
                 store.set('crewVolumeAsGhost', store.get('ghostVolume', 100));
                 // @ts-ignore
-                store.delete('ghostVolume');
+                store["delete"]('ghostVolume');
             }
         }
     },
     schema: {
         alwaysOnTop: {
             type: 'boolean',
-            default: false,
+            "default": false
         },
         language: {
             type: 'string',
-            default: 'unkown',
+            "default": 'unkown'
         },
         microphone: {
             type: 'string',
-            default: 'Default',
+            "default": 'Default'
         },
         speaker: {
             type: 'string',
-            default: 'Default',
+            "default": 'Default'
         },
         pushToTalkMode: {
             type: 'number',
-            default: pushToTalkOptions.VOICE,
+            "default": pushToTalkOptions.VOICE
         },
         serverURL: {
             type: 'string',
-            default: 'https://bettercrewl.ink',
-            format: 'uri',
+            "default": 'https://bettercrewl.ink',
+            format: 'uri'
         },
         pushToTalkShortcut: {
             type: 'string',
-            default: 'V',
+            "default": 'V'
         },
         deafenShortcut: {
             type: 'string',
-            default: 'RControl',
+            "default": 'RControl'
         },
         impostorRadioShortcut: {
             type: 'string',
-            default: 'F',
+            "default": 'F'
         },
         muteShortcut: {
             type: 'string',
-            default: 'RAlt',
+            "default": 'RAlt'
         },
         hideCode: {
             type: 'boolean',
-            default: false,
+            "default": false
         },
         compactOverlay: {
             type: 'boolean',
-            default: false,
+            "default": false
         },
         overlayPosition: {
             type: 'string',
-            default: 'right',
+            "default": 'right'
         },
         meetingOverlay: {
             type: 'boolean',
-            default: true,
+            "default": true
         },
         enableOverlay: {
             type: 'boolean',
-            default: true,
+            "default": true
         },
         crewVolumeAsGhost: {
             type: 'number',
-            default: 100,
+            "default": 100
         },
         ghostVolumeAsImpostor: {
             type: 'number',
-            default: 10,
+            "default": 10
         },
         masterVolume: {
             type: 'number',
-            default: 100,
+            "default": 100
         },
         microphoneGain: {
             type: 'number',
-            default: 100,
+            "default": 100
         },
         microphoneGainEnabled: {
             type: 'boolean',
-            default: false,
+            "default": false
         },
         micSensitivity: {
             type: 'number',
-            default: 0.15,
+            "default": 0.15
         },
         micSensitivityEnabled: {
             type: 'boolean',
-            default: false,
+            "default": false
         },
         natFix: {
             type: 'boolean',
-            default: false,
+            "default": false
         },
         mobileHost: {
             type: 'boolean',
-            default: true,
+            "default": true
         },
         vadEnabled: {
             type: 'boolean',
-            default: true,
+            "default": true
         },
         hardware_acceleration: {
             type: 'boolean',
-            default: true,
+            "default": true
         },
         enableSpatialAudio: {
             type: 'boolean',
-            default: true,
+            "default": true
         },
         obsSecret: {
             type: 'string',
-            default: undefined,
+            "default": undefined
         },
         obsOverlay: {
             type: 'boolean',
-            default: false,
+            "default": false
         },
         echoCancellation: {
             type: 'boolean',
-            default: true,
+            "default": true
         },
         noiseSuppression: {
             type: 'boolean',
-            default: true,
+            "default": true
         },
         oldSampleDebug: {
             type: 'boolean',
-            default: false,
+            "default": false
         },
         playerConfigMap: {
             type: 'object',
-            default: {},
+            "default": {},
             additionalProperties: {
                 type: 'object',
                 properties: {
                     volume: {
                         type: 'number',
-                        default: 1,
+                        "default": 1
                     },
                     isMuted: {
                         type: 'boolean',
-                        default: false,
-                    },
-                },
-            },
+                        "default": false
+                    }
+                }
+            }
         },
         localLobbySettings: {
             type: 'object',
             properties: {
                 maxDistance: {
                     type: 'number',
-                    default: 5.32,
+                    "default": 5.32
                 },
                 haunting: {
                     type: 'boolean',
-                    default: false,
+                    "default": false
                 },
                 commsSabotage: {
                     type: 'boolean',
-                    default: false,
+                    "default": false
                 },
                 hearImpostorsInVents: {
                     type: 'boolean',
-                    default: false,
+                    "default": false
                 },
                 impostersHearImpostersInvent: {
                     type: 'boolean',
-                    default: false,
+                    "default": false
                 },
                 impostorRadioEnabled: {
                     type: 'boolean',
-                    default: false,
+                    "default": false
                 },
                 deadOnly: {
                     type: 'boolean',
-                    default: false,
+                    "default": false
                 },
                 meetingGhostOnly: {
                     type: 'boolean',
-                    default: false,
+                    "default": false
                 },
                 visionHearing: {
                     type: 'boolean',
-                    default: false,
+                    "default": false
                 },
                 hearThroughCameras: {
                     type: 'boolean',
-                    default: false,
+                    "default": false
                 },
                 wallsBlockAudio: {
                     type: 'boolean',
-                    default: false,
+                    "default": false
                 },
                 publicLobby_on: {
                     type: 'boolean',
-                    default: false,
+                    "default": false
                 },
                 publicLobby_title: {
                     type: 'string',
-                    default: '',
+                    "default": ''
                 },
                 publicLobby_language: {
                     type: 'string',
-                    default: 'en',
+                    "default": 'en'
                 },
                 publicLobby_mods: {
                     type: 'string',
-                    default: 'NONE',
-                },
+                    "default": 'NONE'
+                }
             },
-            default: {
+            "default": {
                 maxDistance: 5.32,
                 haunting: false,
                 commsSabotage: false,
@@ -313,58 +316,59 @@ export const SettingsStore = new Store({
                 publicLobby_on: false,
                 publicLobby_title: '',
                 publicLobby_language: 'en',
-                publicLobby_mods: 'NONE',
-            },
+                publicLobby_mods: 'NONE'
+            }
         },
         launchPlatform: {
             type: 'string',
-            default: GamePlatform.STEAM,
+            "default": GamePlatform_1.GamePlatform.STEAM
         },
         customPlatforms: {
             type: 'object',
-            default: {},
+            "default": {},
             additionalProperties: {
                 type: 'object',
                 properties: {
-                    default: {
+                    "default": {
                         type: 'boolean',
-                        default: false,
+                        "default": false
                     },
                     key: {
                         type: 'string',
-                        default: '',
+                        "default": ''
                     },
                     launchType: {
                         type: 'string',
-                        default: 'EXE',
+                        "default": 'EXE'
                     },
                     runPath: {
                         type: 'string',
-                        default: '',
+                        "default": ''
                     },
                     execute: {
                         type: 'array',
-                        default: [''],
+                        "default": [''],
                         items: {
                             type: 'string',
-                            default: '',
-                        },
+                            "default": ''
+                        }
                     },
                     translateKey: {
                         type: 'string',
-                        default: '',
-                    },
-                },
-            },
-        },
-    },
+                        "default": ''
+                    }
+                }
+            }
+        }
+    }
 });
 // If our setting is a keyof ISettings, value is the appropriate type. If setting is `playerConfigMap.1234` then value is a socket config
-export const setSetting = (setting, value) => {
-    SettingsStore.set(setting, value);
+var setSetting = function (setting, value) {
+    exports.SettingsStore.set(setting, value);
 };
-export const setLobbySetting = (setting, value) => {
-    SettingsStore.set(`localLobbySettings.${setting}`, value);
+exports.setSetting = setSetting;
+var setLobbySetting = function (setting, value) {
+    exports.SettingsStore.set("localLobbySettings.".concat(setting), value);
 };
-export default SettingsStore;
-//# sourceMappingURL=SettingsStore.js.map
+exports.setLobbySetting = setLobbySetting;
+exports["default"] = exports.SettingsStore;

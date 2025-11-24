@@ -1,4 +1,3 @@
-"use strict";
 // import { EventEmitter as EventEmitterO } from 'events';
 // import Peer from 'simple-peer';
 // import * as io from 'socket.io-client';
@@ -186,4 +185,3 @@
 // 	}
 // }
 // export const connectionController = new ConnectionController();
-//# sourceMappingURL=ConnectionController.js.map

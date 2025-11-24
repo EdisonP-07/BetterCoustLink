@@ -1,5 +1,8 @@
+"use strict";
+exports.__esModule = true;
+exports.IpcRendererMessages = exports.IpcHandlerMessages = exports.IpcOverlayMessages = exports.IpcSyncMessages = exports.IpcMessages = void 0;
 // Renderer --> Main (send/on)
-export var IpcMessages;
+var IpcMessages;
 (function (IpcMessages) {
     IpcMessages["SHOW_ERROR_DIALOG"] = "SHOW_ERROR_DIALOG";
     IpcMessages["OPEN_AMONG_US_GAME"] = "OPEN_AMONG_US_GAME";
@@ -10,31 +13,31 @@ export var IpcMessages;
     IpcMessages["SEND_TO_MAINWINDOW"] = "SEND_TO_MAINWINDOW";
     IpcMessages["RESTART_AND_UPDATE"] = "RESTART_AND_UPDATE";
     IpcMessages["REQUEST_MOD"] = "REQUEST_MOD";
-})(IpcMessages || (IpcMessages = {}));
+})(IpcMessages = exports.IpcMessages || (exports.IpcMessages = {}));
 // Renderer --> Main (sendSync/on)
-export var IpcSyncMessages;
+var IpcSyncMessages;
 (function (IpcSyncMessages) {
     IpcSyncMessages["GET_INITIAL_STATE"] = "GET_INITIAL_STATE";
-})(IpcSyncMessages || (IpcSyncMessages = {}));
-export var IpcOverlayMessages;
+})(IpcSyncMessages = exports.IpcSyncMessages || (exports.IpcSyncMessages = {}));
+var IpcOverlayMessages;
 (function (IpcOverlayMessages) {
     IpcOverlayMessages["NOTIFY_GAME_STATE_CHANGED"] = "NOTIFY_GAME_STATE_CHANGED";
     IpcOverlayMessages["NOTIFY_VOICE_STATE_CHANGED"] = "NOTIFY_VOICE_STATE_CHANGED";
     IpcOverlayMessages["NOTIFY_SETTINGS_CHANGED"] = "NOTIFY_SETTINGS_CHANGED";
     IpcOverlayMessages["NOTIFY_PLAYERCOLORS_CHANGED"] = "NOTIFY_PLAYERCOLORS_CHANGED";
     IpcOverlayMessages["REQUEST_INITVALUES"] = "REQUEST_INITVALUES";
-})(IpcOverlayMessages || (IpcOverlayMessages = {}));
+})(IpcOverlayMessages = exports.IpcOverlayMessages || (exports.IpcOverlayMessages = {}));
 // Renderer --> Main (invoke/handle)
-export var IpcHandlerMessages;
+var IpcHandlerMessages;
 (function (IpcHandlerMessages) {
     IpcHandlerMessages["START_HOOK"] = "START_HOOK";
     IpcHandlerMessages["RESET_KEYHOOKS"] = "RESET_KEYHOOKS";
     IpcHandlerMessages["JOIN_LOBBY"] = "JOIN_LOBBY";
     IpcHandlerMessages["JOIN_LOBBY_ERROR"] = "JOIN_LOBBY_ERROR";
     IpcHandlerMessages["OPEN_LOBBYBROWSER"] = "OPEN_LOBBYBROWSER";
-})(IpcHandlerMessages || (IpcHandlerMessages = {}));
+})(IpcHandlerMessages = exports.IpcHandlerMessages || (exports.IpcHandlerMessages = {}));
 // Main --> Renderer (send/on)
-export var IpcRendererMessages;
+var IpcRendererMessages;
 (function (IpcRendererMessages) {
     IpcRendererMessages["NOTIFY_GAME_OPENED"] = "NOTIFY_GAME_OPENED";
     IpcRendererMessages["NOTIFY_GAME_STATE_CHANGED"] = "NOTIFY_GAME_STATE_CHANGED";
@@ -44,5 +47,4 @@ export var IpcRendererMessages;
     IpcRendererMessages["IMPOSTOR_RADIO"] = "IMPOSTOR_RADIO";
     IpcRendererMessages["ERROR"] = "ERROR";
     IpcRendererMessages["AUTO_UPDATER_STATE"] = "AUTO_UPDATER_STATE";
-})(IpcRendererMessages || (IpcRendererMessages = {}));
-//# sourceMappingURL=ipc-messages.js.map
+})(IpcRendererMessages = exports.IpcRendererMessages || (exports.IpcRendererMessages = {}));

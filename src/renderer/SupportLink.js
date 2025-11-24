@@ -1,9 +1,11 @@
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
-import React from 'react';
-import { shell, ipcRenderer } from 'electron';
-import makeStyles from '@mui/styles/makeStyles';
-const useStyles = makeStyles(() => ({
+"use strict";
+exports.__esModule = true;
+var Link_1 = require("@mui/material/Link");
+var Typography_1 = require("@mui/material/Typography");
+var react_1 = require("react");
+var electron_1 = require("electron");
+var makeStyles_1 = require("@mui/styles/makeStyles");
+var useStyles = (0, makeStyles_1["default"])(function () { return ({
     button: {
         color: 'white',
         background: 'none',
@@ -17,19 +19,18 @@ const useStyles = makeStyles(() => ({
         marginTop: 24,
         '&:hover': {
             borderColor: '#00ff00',
-            cursor: 'pointer',
-        },
-    },
-}));
-const onRefreshClick = () => {
-    ipcRenderer.send('reload');
+            cursor: 'pointer'
+        }
+    }
+}); });
+var onRefreshClick = function () {
+    electron_1.ipcRenderer.send('reload');
 };
-const SupportLink = function () {
-    const classes = useStyles();
-    return (React.createElement(Typography, { align: "center" },
+var SupportLink = function () {
+    var classes = useStyles();
+    return (react_1["default"].createElement(Typography_1["default"], { align: "center" },
         "Need help?\u00A0",
-        React.createElement(Link, { href: "#", color: "secondary", onClick: () => shell.openExternal('https://discord.gg/4cpvp3KyhF') }, "Get support"),
-        React.createElement("button", { className: classes.button, onClick: onRefreshClick }, "Reload")));
+        react_1["default"].createElement(Link_1["default"], { href: "#", color: "secondary", onClick: function () { return electron_1.shell.openExternal('https://discord.gg/4cpvp3KyhF'); } }, "Get support"),
+        react_1["default"].createElement("button", { className: classes.button, onClick: onRefreshClick }, "Reload")));
 };
-export default SupportLink;
-//# sourceMappingURL=SupportLink.js.map
+exports["default"] = SupportLink;

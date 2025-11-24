@@ -1,34 +1,35 @@
-import { createTheme } from '@mui/material';
-import { red, purple, grey } from '@mui/material/colors';
+"use strict";
+exports.__esModule = true;
+var material_1 = require("@mui/material");
+var colors_1 = require("@mui/material/colors");
 // Create a theme instance.
-const theme = createTheme({
+var theme = (0, material_1.createTheme)({
     palette: {
         primary: {
-            main: purple[300],
+            main: colors_1.purple[300]
         },
-        secondary: red,
+        secondary: colors_1.red,
         background: {
-            default: '#27232a',
-            paper: '#272727',
+            "default": '#27232a',
+            paper: '#272727'
         },
         grey: {
-            main: grey[300],
-            dark: grey[400]
+            main: colors_1.grey[300],
+            dark: colors_1.grey[400]
         },
-        mode: 'dark',
+        mode: 'dark'
     },
     components: {
         MuiPaper: {
-            styleOverrides: { root: { backgroundImage: 'unset' } },
+            styleOverrides: { root: { backgroundImage: 'unset' } }
         },
         MuiTooltip: {
             styleOverrides: {
                 tooltip: {
-                    fontSize: 15,
+                    fontSize: 15
                 }
-            },
-        },
+            }
+        }
     }
 });
-export default theme;
-//# sourceMappingURL=theme.js.map
+exports["default"] = theme;

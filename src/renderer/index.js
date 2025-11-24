@@ -1,16 +1,14 @@
-"use strict";
 if (typeof window !== 'undefined' && window.location) {
-    const query = new URLSearchParams(window.location.search.substring(1));
+    var query = new URLSearchParams(window.location.search.substring(1));
     console.log('HEY');
-    const view = query.get('view') || 'app';
+    var view = query.get('view') || 'app';
     if (view === 'app') {
-        import('./App');
+        Promise.resolve().then(function () { return require('./App'); });
     }
     else if (view === 'lobbies') {
-        import('./LobbyBrowser/LobbyBrowserContainer');
+        Promise.resolve().then(function () { return require('./LobbyBrowser/LobbyBrowserContainer'); });
     }
     else {
-        import('./Overlay');
+        Promise.resolve().then(function () { return require('./Overlay'); });
     }
 }
-//# sourceMappingURL=index.js.map

@@ -1,18 +1,19 @@
+"use strict";
+exports.__esModule = true;
 // @ts-nocheck
-import i18n from 'i18next';
-import { reactI18nextModule } from 'react-i18next';
-import languages from './languages';
-i18n
+var i18next_1 = require("i18next");
+var react_i18next_1 = require("react-i18next");
+var languages_1 = require("./languages");
+i18next_1["default"]
     // .use(Backend)
-    .use(reactI18nextModule) // pas
+    .use(react_i18next_1.reactI18nextModule) // pas
     .init({
-    resources: languages,
+    resources: languages_1["default"],
     defaultLocale: 'en',
     fallbackLng: 'en',
     debug: false,
     interpolation: {
-        escapeValue: false, // not needed for react!!
-    },
+        escapeValue: false
+    }
 });
-export default i18n;
-//# sourceMappingURL=i18n.js.map
+exports["default"] = i18next_1["default"];

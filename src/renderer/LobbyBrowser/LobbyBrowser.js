@@ -1,66 +1,79 @@
-import React, { useEffect, useState } from 'react';
-import withStyles from '@mui/styles/withStyles';
-import makeStyles from '@mui/styles/makeStyles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
-import { ipcRenderer } from 'electron';
-import { IpcHandlerMessages, IpcMessages } from '../../common/ipc-messages';
-import io from 'socket.io-client';
-import i18next from 'i18next';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Tooltip } from '@mui/material';
-import languages from '../language/languages';
-import { modList } from '../../common/Mods';
-import { GameState } from '../../common/AmongUsState';
-import SettingsStore from '../settings/SettingsStore';
-const serverUrl = SettingsStore.get('serverURL', 'https://bettercrewl.ink/');
-const language = SettingsStore.get('language', 'en');
-i18next.changeLanguage(language);
-const StyledTableCell = withStyles((theme) => ({
+"use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var react_1 = require("react");
+var withStyles_1 = require("@mui/styles/withStyles");
+var makeStyles_1 = require("@mui/styles/makeStyles");
+var Table_1 = require("@mui/material/Table");
+var TableBody_1 = require("@mui/material/TableBody");
+var TableCell_1 = require("@mui/material/TableCell");
+var TableContainer_1 = require("@mui/material/TableContainer");
+var TableHead_1 = require("@mui/material/TableHead");
+var TableRow_1 = require("@mui/material/TableRow");
+var Paper_1 = require("@mui/material/Paper");
+var Button_1 = require("@mui/material/Button");
+var electron_1 = require("electron");
+var ipc_messages_1 = require("../../common/ipc-messages");
+var socket_io_client_1 = require("socket.io-client");
+var i18next_1 = require("i18next");
+var material_1 = require("@mui/material");
+var languages_1 = require("../language/languages");
+var Mods_1 = require("../../common/Mods");
+var AmongUsState_1 = require("../../common/AmongUsState");
+var SettingsStore_1 = require("../settings/SettingsStore");
+var serverUrl = SettingsStore_1["default"].get('serverURL', 'https://bettercrewl.ink/');
+var language = SettingsStore_1["default"].get('language', 'en');
+i18next_1["default"].changeLanguage(language);
+var StyledTableCell = (0, withStyles_1["default"])(function (theme) { return ({
     head: {
         backgroundColor: '#1d1a23',
-        color: theme.palette.common.white,
+        color: theme.palette.common.white
     },
     body: {
-        fontSize: 14,
-    },
-}))(TableCell);
-const StyledTableRow = withStyles(() => ({
+        fontSize: 14
+    }
+}); })(TableCell_1["default"]);
+var StyledTableRow = (0, withStyles_1["default"])(function () { return ({
     root: {
         '&:nth-of-type(odd)': {
-            backgroundColor: '#25232a',
+            backgroundColor: '#25232a'
         },
         '&:nth-of-type(even)': {
-            backgroundColor: '#1d1a23',
-        },
-    },
-}))(TableRow);
-const useStyles = makeStyles({
+            backgroundColor: '#1d1a23'
+        }
+    }
+}); })(TableRow_1["default"]);
+var useStyles = (0, makeStyles_1["default"])({
     table: {
-        minWidth: 700,
+        minWidth: 700
     },
     container: {
-        maxHeight: '400px',
-    },
+        maxHeight: '400px'
+    }
 });
-const servers = {
+var servers = {
     // '50.116.1.42': 'North America',
     // '172.105.251.170': 'Europe',
     // '139.162.111.196': 'Asia',
     '192.241.154.115': 'skeld.net',
     '154.16.67.100': 'Modded (North America)',
-    '78.47.142.18': 'Modded (Europe)',
+    '78.47.142.18': 'Modded (Europe)'
 };
 function sortLobbies(a, b) {
-    if (a.gameState === GameState.LOBBY && b.gameState !== GameState.LOBBY) {
+    if (a.gameState === AmongUsState_1.GameState.LOBBY && b.gameState !== AmongUsState_1.GameState.LOBBY) {
         return -1;
     }
-    else if (b.gameState === GameState.LOBBY && a.gameState !== GameState.LOBBY) {
+    else if (b.gameState === AmongUsState_1.GameState.LOBBY && a.gameState !== AmongUsState_1.GameState.LOBBY) {
         return 1;
     }
     else {
@@ -78,116 +91,120 @@ function sortLobbies(a, b) {
 }
 function getModName(mod) {
     var _a;
-    return ((_a = modList.find((o) => o.id === mod)) === null || _a === void 0 ? void 0 : _a.label) || (mod !== null && mod !== void 0 ? mod : 'None');
+    return ((_a = Mods_1.modList.find(function (o) { return o.id === mod; })) === null || _a === void 0 ? void 0 : _a.label) || (mod !== null && mod !== void 0 ? mod : 'None');
 }
 // @ts-ignore
-export default function lobbyBrowser({ t }) {
-    const classes = useStyles();
-    const [publiclobbies, setPublicLobbies] = useState({});
-    const [socket, setSocket] = useState();
-    const [code, setCode] = React.useState('');
-    const [, forceRender] = useState({});
-    const [mod, setMod] = useState('NONE');
-    useEffect(() => {
-        ipcRenderer.invoke(IpcMessages.REQUEST_MOD).then((mod) => setMod(mod));
-        const s = io(serverUrl, {
-            transports: ['websocket'],
+function lobbyBrowser(_a) {
+    var t = _a.t;
+    var classes = useStyles();
+    var _b = (0, react_1.useState)({}), publiclobbies = _b[0], setPublicLobbies = _b[1];
+    var _c = (0, react_1.useState)(), socket = _c[0], setSocket = _c[1];
+    var _d = react_1["default"].useState(''), code = _d[0], setCode = _d[1];
+    var _e = (0, react_1.useState)({}), forceRender = _e[1];
+    var _f = (0, react_1.useState)('NONE'), mod = _f[0], setMod = _f[1];
+    (0, react_1.useEffect)(function () {
+        electron_1.ipcRenderer.invoke(ipc_messages_1.IpcMessages.REQUEST_MOD).then(function (mod) { return setMod(mod); });
+        var s = (0, socket_io_client_1["default"])(serverUrl, {
+            transports: ['websocket']
         });
         setSocket(s);
-        s.on('update_lobby', (lobby) => {
-            setPublicLobbies((old) => (Object.assign(Object.assign({}, old), { [lobby.id]: lobby })));
+        s.on('update_lobby', function (lobby) {
+            setPublicLobbies(function (old) {
+                var _a;
+                return (__assign(__assign({}, old), (_a = {}, _a[lobby.id] = lobby, _a)));
+            });
         });
-        s.on('new_lobbies', (lobbies) => {
-            setPublicLobbies((old) => {
-                const lobbyMap = Object.assign({}, old);
-                for (const index in lobbies) {
+        s.on('new_lobbies', function (lobbies) {
+            setPublicLobbies(function (old) {
+                var lobbyMap = __assign({}, old);
+                for (var index in lobbies) {
                     lobbyMap[lobbies[index].id] = lobbies[index];
                 }
                 return lobbyMap;
             });
         });
-        s.on('remove_lobby', (lobbyId) => {
-            setPublicLobbies((old) => {
+        s.on('remove_lobby', function (lobbyId) {
+            setPublicLobbies(function (old) {
                 delete old[lobbyId];
-                return Object.assign({}, old);
+                return __assign({}, old);
             });
         });
-        s.on('connect', () => {
+        s.on('connect', function () {
             s.emit('lobbybrowser', true);
         });
-        ipcRenderer.on(IpcHandlerMessages.JOIN_LOBBY_ERROR, (event, code, server) => {
+        electron_1.ipcRenderer.on(ipc_messages_1.IpcHandlerMessages.JOIN_LOBBY_ERROR, function (event, code, server) {
             console.log('ERROR: ', code);
-            setCode(`${code}  ${servers[server] ? `on region ${servers[server]}` : `\n Custom Server: ${server}`}`);
+            setCode("".concat(code, "  ").concat(servers[server] ? "on region ".concat(servers[server]) : "\n Custom Server: ".concat(server)));
         });
-        const secondPassed = setInterval(() => {
+        var secondPassed = setInterval(function () {
             forceRender({});
         }, 1000);
-        return () => {
+        return function () {
             socket === null || socket === void 0 ? void 0 : socket.emit('lobbybrowser', false);
             socket === null || socket === void 0 ? void 0 : socket.close();
             clearInterval(secondPassed);
         };
     }, []);
-    return (React.createElement("div", { style: { height: '100%', width: '100%', paddingTop: '15px' } },
-        React.createElement("div", { style: { height: '500px', padding: '20px' } },
-            React.createElement("b", null, t('lobbybrowser.header')),
-            React.createElement(Dialog, { open: code !== '', 
+    return (react_1["default"].createElement("div", { style: { height: '100%', width: '100%', paddingTop: '15px' } },
+        react_1["default"].createElement("div", { style: { height: '500px', padding: '20px' } },
+            react_1["default"].createElement("b", null, t('lobbybrowser.header')),
+            react_1["default"].createElement(material_1.Dialog, { open: code !== '', 
                 // TransitionComponent={Transition}
                 keepMounted: true, "aria-labelledby": "alert-dialog-slide-title", "aria-describedby": "alert-dialog-slide-description" },
-                React.createElement(DialogTitle, { id: "alert-dialog-slide-title" }, "Lobby information"),
-                React.createElement(DialogContent, null,
-                    React.createElement(DialogContentText, { id: "alert-dialog-slide-description" }, code.split('\n').map((i, key) => {
-                        return React.createElement("div", { key: key }, i);
+                react_1["default"].createElement(material_1.DialogTitle, { id: "alert-dialog-slide-title" }, "Lobby information"),
+                react_1["default"].createElement(material_1.DialogContent, null,
+                    react_1["default"].createElement(material_1.DialogContentText, { id: "alert-dialog-slide-description" }, code.split('\n').map(function (i, key) {
+                        return react_1["default"].createElement("div", { key: key }, i);
                     }))),
-                React.createElement(DialogActions, null,
-                    React.createElement(Button, { onClick: () => setCode(''), color: "primary" }, t('buttons.close')))),
-            React.createElement(Paper, null,
-                React.createElement(TableContainer, { component: Paper, className: classes.container },
-                    React.createElement(Table, { className: classes.table, "aria-label": "customized table", stickyHeader: true },
-                        React.createElement(TableHead, null,
-                            React.createElement(TableRow, null,
-                                React.createElement(StyledTableCell, null, t('lobbybrowser.list.title')),
-                                React.createElement(StyledTableCell, { align: "left" }, t('lobbybrowser.list.host')),
-                                React.createElement(StyledTableCell, { align: "left" }, t('lobbybrowser.list.players')),
-                                React.createElement(StyledTableCell, { align: "left" }, t('lobbybrowser.list.mods')),
-                                React.createElement(StyledTableCell, { align: "left" }, t('lobbybrowser.list.language')),
-                                React.createElement(StyledTableCell, { align: "left" }, "Status"),
-                                React.createElement(StyledTableCell, { align: "left" }))),
-                        React.createElement(TableBody, null, Object.values(publiclobbies)
+                react_1["default"].createElement(material_1.DialogActions, null,
+                    react_1["default"].createElement(Button_1["default"], { onClick: function () { return setCode(''); }, color: "primary" }, t('buttons.close')))),
+            react_1["default"].createElement(Paper_1["default"], null,
+                react_1["default"].createElement(TableContainer_1["default"], { component: Paper_1["default"], className: classes.container },
+                    react_1["default"].createElement(Table_1["default"], { className: classes.table, "aria-label": "customized table", stickyHeader: true },
+                        react_1["default"].createElement(TableHead_1["default"], null,
+                            react_1["default"].createElement(TableRow_1["default"], null,
+                                react_1["default"].createElement(StyledTableCell, null, t('lobbybrowser.list.title')),
+                                react_1["default"].createElement(StyledTableCell, { align: "left" }, t('lobbybrowser.list.host')),
+                                react_1["default"].createElement(StyledTableCell, { align: "left" }, t('lobbybrowser.list.players')),
+                                react_1["default"].createElement(StyledTableCell, { align: "left" }, t('lobbybrowser.list.mods')),
+                                react_1["default"].createElement(StyledTableCell, { align: "left" }, t('lobbybrowser.list.language')),
+                                react_1["default"].createElement(StyledTableCell, { align: "left" }, "Status"),
+                                react_1["default"].createElement(StyledTableCell, { align: "left" }))),
+                        react_1["default"].createElement(TableBody_1["default"], null, Object.values(publiclobbies)
                             .sort(sortLobbies)
-                            .map((row) => {
+                            .map(function (row) {
                             var _a, _b;
-                            return (React.createElement(StyledTableRow, { key: row.id },
-                                React.createElement(StyledTableCell, { component: "th", scope: "row" }, row.title),
-                                React.createElement(StyledTableCell, { align: "left" }, row.host),
-                                React.createElement(StyledTableCell, { align: "left" },
+                            return (react_1["default"].createElement(StyledTableRow, { key: row.id },
+                                react_1["default"].createElement(StyledTableCell, { component: "th", scope: "row" }, row.title),
+                                react_1["default"].createElement(StyledTableCell, { align: "left" }, row.host),
+                                react_1["default"].createElement(StyledTableCell, { align: "left" },
                                     row.current_players,
                                     "/",
                                     row.max_players),
-                                React.createElement(StyledTableCell, { align: "left" }, getModName(row.mods)),
-                                React.createElement(StyledTableCell, { align: "left" }, (_b = (_a = languages[row.language]) === null || _a === void 0 ? void 0 : _a.name) !== null && _b !== void 0 ? _b : 'English'),
-                                React.createElement(StyledTableCell, { align: "left" },
-                                    row.gameState === GameState.LOBBY ? 'Lobby' : 'In game',
+                                react_1["default"].createElement(StyledTableCell, { align: "left" }, getModName(row.mods)),
+                                react_1["default"].createElement(StyledTableCell, { align: "left" }, (_b = (_a = languages_1["default"][row.language]) === null || _a === void 0 ? void 0 : _a.name) !== null && _b !== void 0 ? _b : 'English'),
+                                react_1["default"].createElement(StyledTableCell, { align: "left" },
+                                    row.gameState === AmongUsState_1.GameState.LOBBY ? 'Lobby' : 'In game',
                                     ' ',
                                     row.stateTime && new Date(Date.now() - row.stateTime).toISOString().substr(14, 5)),
-                                React.createElement(StyledTableCell, { align: "right" },
-                                    React.createElement(Tooltip, { title: row.gameState !== GameState.LOBBY ? t('lobbybrowser.code_tooltips.in_progress') :
+                                react_1["default"].createElement(StyledTableCell, { align: "right" },
+                                    react_1["default"].createElement(material_1.Tooltip, { title: row.gameState !== AmongUsState_1.GameState.LOBBY ? t('lobbybrowser.code_tooltips.in_progress') :
                                             row.max_players === row.current_players ? t('lobbybrowser.code_tooltips.full_lobby') :
-                                                row.mods != mod ? `${t('lobbybrowser.code_tooltips.incompatible')} '${getModName(mod)}' ${t('lobbybrowser.code_tooltips.and')} '${getModName(row.mods)}'` : "" },
-                                        React.createElement("span", null,
-                                            React.createElement(Button, { disabled: row.gameState !== GameState.LOBBY ||
+                                                row.mods != mod ? "".concat(t('lobbybrowser.code_tooltips.incompatible'), " '").concat(getModName(mod), "' ").concat(t('lobbybrowser.code_tooltips.and'), " '").concat(getModName(row.mods), "'") : "" },
+                                        react_1["default"].createElement("span", null,
+                                            react_1["default"].createElement(Button_1["default"], { disabled: row.gameState !== AmongUsState_1.GameState.LOBBY ||
                                                     row.max_players === row.current_players ||
-                                                    row.mods != mod, variant: "contained", color: "secondary", onClick: () => {
-                                                    socket === null || socket === void 0 ? void 0 : socket.emit('join_lobby', row.id, (state, codeOrError, server, publicLobby) => {
+                                                    row.mods != mod, variant: "contained", color: "secondary", onClick: function () {
+                                                    socket === null || socket === void 0 ? void 0 : socket.emit('join_lobby', row.id, function (state, codeOrError, server, publicLobby) {
                                                         if (state === 0) {
-                                                            setCode(`${t('lobbybrowser.code')}: ${codeOrError} \n Region: ${server}`);
+                                                            setCode("".concat(t('lobbybrowser.code'), ": ").concat(codeOrError, " \n Region: ").concat(server));
                                                             // ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
                                                         }
                                                         else {
-                                                            setCode(`Error: ${codeOrError}`);
+                                                            setCode("Error: ".concat(codeOrError));
                                                         }
                                                     });
                                                 } }, "Show code"))))));
                         }))))))));
 }
-//# sourceMappingURL=LobbyBrowser.js.map
+exports["default"] = lobbyBrowser;

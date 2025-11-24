@@ -1,12 +1,15 @@
-import Ajv from 'ajv';
-export const validateClientPeerConfig = new Ajv({
+"use strict";
+exports.__esModule = true;
+exports.validateClientPeerConfig = void 0;
+var ajv_1 = require("ajv");
+exports.validateClientPeerConfig = new ajv_1["default"]({
     format: 'full',
-    allErrors: true,
+    allErrors: true
 }).compile({
     type: 'object',
     properties: {
         forceRelayOnly: {
-            type: 'boolean',
+            type: 'boolean'
         },
         iceServers: {
             type: 'array',
@@ -18,20 +21,19 @@ export const validateClientPeerConfig = new Ajv({
                         format: 'uri',
                         items: {
                             type: 'string',
-                            format: 'uri',
-                        },
+                            format: 'uri'
+                        }
                     },
                     username: {
-                        type: 'string',
+                        type: 'string'
                     },
                     credential: {
-                        type: 'string',
-                    },
+                        type: 'string'
+                    }
                 },
-                required: ['urls'],
-            },
-        },
+                required: ['urls']
+            }
+        }
     },
-    required: ['forceRelayOnly', 'iceServers'],
+    required: ['forceRelayOnly', 'iceServers']
 });
-//# sourceMappingURL=validateClientPeerConfig.js.map

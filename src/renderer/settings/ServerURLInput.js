@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import Alert from '@mui/material/Alert';
-import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField } from '@mui/material';
-import { isHttpUri, isHttpsUri } from 'valid-url';
+"use strict";
+exports.__esModule = true;
+var react_1 = require("react");
+var Alert_1 = require("@mui/material/Alert");
+var material_1 = require("@mui/material");
+var valid_url_1 = require("valid-url");
 function validateServerUrl(uri) {
     try {
-        if (!isHttpUri(uri) && !isHttpsUri(uri))
+        if (!(0, valid_url_1.isHttpUri)(uri) && !(0, valid_url_1.isHttpsUri)(uri))
             return false;
-        const url = new URL(uri);
+        var url = new URL(uri);
         if (url.hostname === 'discord.gg')
             return false;
         if (url.pathname !== '/')
@@ -17,15 +19,16 @@ function validateServerUrl(uri) {
         return false;
     }
 }
-const RawServerURLInput = function ({ t, initialURL, onValidURL, className }) {
-    const [isValidURL, setURLValid] = useState(true);
-    const [currentURL, setCurrentURL] = useState(initialURL);
-    const [open, setOpen] = useState(false);
-    useEffect(() => {
+var RawServerURLInput = function (_a) {
+    var t = _a.t, initialURL = _a.initialURL, onValidURL = _a.onValidURL, className = _a.className;
+    var _b = (0, react_1.useState)(true), isValidURL = _b[0], setURLValid = _b[1];
+    var _c = (0, react_1.useState)(initialURL), currentURL = _c[0], setCurrentURL = _c[1];
+    var _d = (0, react_1.useState)(false), open = _d[0], setOpen = _d[1];
+    (0, react_1.useEffect)(function () {
         setCurrentURL(initialURL);
     }, [initialURL]);
     function handleChange(event) {
-        const url = event.target.value.trim();
+        var url = event.target.value.trim();
         setCurrentURL(url);
         if (validateServerUrl(url)) {
             setURLValid(true);
@@ -34,33 +37,32 @@ const RawServerURLInput = function ({ t, initialURL, onValidURL, className }) {
             setURLValid(false);
         }
     }
-    return (React.createElement(React.Fragment, null,
-        React.createElement(Button, { variant: "contained", color: "secondary", onClick: () => setOpen(true) }, t('settings.advanced.change_server')),
-        React.createElement(Dialog, { fullScreen: true, open: open, onClose: () => setOpen(false) },
-            React.createElement("div", null,
-                React.createElement(DialogTitle, null, t('settings.advanced.change_server'))),
-            React.createElement(DialogContent, { className: className },
-                React.createElement(TextField, { fullWidth: true, error: !isValidURL, spellCheck: false, label: t('settings.advanced.voice_server'), value: currentURL, onChange: handleChange, variant: "outlined", color: "primary", helperText: isValidURL ? '' : t('settings.advanced.voice_server') }),
-                React.createElement(Alert, { severity: "error" }, t('settings.advanced.voice_server_warning')),
-                React.createElement(Button, { color: "primary", variant: "contained", onClick: () => {
+    return (react_1["default"].createElement(react_1["default"].Fragment, null,
+        react_1["default"].createElement(material_1.Button, { variant: "contained", color: "secondary", onClick: function () { return setOpen(true); } }, t('settings.advanced.change_server')),
+        react_1["default"].createElement(material_1.Dialog, { fullScreen: true, open: open, onClose: function () { return setOpen(false); } },
+            react_1["default"].createElement("div", null,
+                react_1["default"].createElement(material_1.DialogTitle, null, t('settings.advanced.change_server'))),
+            react_1["default"].createElement(material_1.DialogContent, { className: className },
+                react_1["default"].createElement(material_1.TextField, { fullWidth: true, error: !isValidURL, spellCheck: false, label: t('settings.advanced.voice_server'), value: currentURL, onChange: handleChange, variant: "outlined", color: "primary", helperText: isValidURL ? '' : t('settings.advanced.voice_server') }),
+                react_1["default"].createElement(Alert_1["default"], { severity: "error" }, t('settings.advanced.voice_server_warning')),
+                react_1["default"].createElement(material_1.Button, { color: "primary", variant: "contained", onClick: function () {
                         setOpen(false);
                         setURLValid(true);
                         onValidURL('https://bettercrewl.ink');
                     } }, t('settings.advanced.reset_default'))),
-            React.createElement(DialogActions, null,
-                React.createElement(Button, { color: "primary", onClick: () => {
+            react_1["default"].createElement(material_1.DialogActions, null,
+                react_1["default"].createElement(material_1.Button, { color: "primary", onClick: function () {
                         setURLValid(true);
                         setOpen(false);
                         setCurrentURL(initialURL);
                     } }, t('buttons.cancel')),
-                React.createElement(Button, { disabled: !isValidURL, color: "primary", onClick: () => {
+                react_1["default"].createElement(material_1.Button, { disabled: !isValidURL, color: "primary", onClick: function () {
                         setOpen(false);
-                        let url = currentURL;
+                        var url = currentURL;
                         if (url.endsWith('/'))
                             url = url.substring(0, url.length - 1);
                         onValidURL(url);
                     } }, t('buttons.confirm'))))));
 };
-const ServerURLInput = React.memo(RawServerURLInput);
-export default ServerURLInput;
-//# sourceMappingURL=ServerURLInput.js.map
+var ServerURLInput = react_1["default"].memo(RawServerURLInput);
+exports["default"] = ServerURLInput;

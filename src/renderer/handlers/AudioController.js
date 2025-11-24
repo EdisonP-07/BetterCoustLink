@@ -1,4 +1,3 @@
-"use strict";
 // import { EventEmitter as EventEmitterO } from 'events';
 // import * as io from 'socket.io-client';
 // import { AmongUsState, GameState, Player } from './AmongUsState';
@@ -133,4 +132,3 @@
 // 	}
 // }
 // export const audioController = new AudioController();
-//# sourceMappingURL=AudioController.js.map
