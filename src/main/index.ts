@@ -17,6 +17,7 @@ import { ISettings } from '../common/ISettings';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { gameReader } from './hook';
 import { GenerateHat } from './avatarGenerator';
+import * as dgram from 'dgram';
 const args = require('minimist')(process.argv); // eslint-disable-line
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const devTools = (isDevelopment || args.dev === 1) && true;
@@ -296,6 +297,25 @@ if (!gotTheLock) {
 			}
 		});
 	});
+
+const CAMO_UDP_PORT = 6000;
+const udpServer = dgram.createSocket('udp4');
+
+udpServer.on('message', (msg) => {
+    const camoActive = msg[0] === 1;
+    console.log('Camoflager active:', camoActive);
+
+    // Broadcast to all renderer windows
+    BrowserWindow.getAllWindows().forEach(win => {
+        win.webContents.send('camoflager-signal', camoActive);
+    });
+});
+
+// Bind the UDP server once, outside the message handler
+udpServer.bind(CAMO_UDP_PORT, '127.0.0.1', () => {
+    console.log(`Camoflager UDP listener running on port ${CAMO_UDP_PORT}`);
+});
+
 
 	// create main BrowserWindow when electron is ready
 	app.whenReady().then(() => {
