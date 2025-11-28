@@ -1,12 +1,15 @@
 {
-	"extends": "./node_modules/electron-webpack/tsconfig-base.json",
-	"compilerOptions": {
-		"jsx": "react",
-		"skipLibCheck": true,
-		"resolveJsonModule": true,
-	},
-	"exclude": [
-		"./node_modules/react-i18next/*"
-	]
+  "extends": "./node_modules/electron-webpack/tsconfig-base.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
 
-  }
+    // KEY FIX: Restrict where TypeScript looks for types
+    "typeRoots": ["./node_modules/@types"],
+
+    // Optional but recommended
+    "types": ["node", "react", "react-dom"]
+  },
+  "exclude": ["node_modules", "dist"]
+}
